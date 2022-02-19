@@ -2,26 +2,21 @@ import { useState, useEffect } from "react";
 import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm/ContactForm'
 import ContactFilter from './ContactFilter/ContactFilter'
+import useLocalStorage from '../hooks/useLocalStorage'
+import data from '../data/data.json'
 const shortid = require('shortid');
 
 
 function App() {
-
-const [contacts, setContacts] = useState([
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56',},
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12',},
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79',},
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26',},
-]);
   const [filter, setFilter] = useState('');
+  const [contacts, setContacts] = useLocalStorage('contacts', data);
 //============== принимает и записывает данные с компонента Filter в state ======
   const changeFilter = (e) => { 
     setFilter(e.currentTarget.value)
-    //this.setState({filter: e.currentTarget.value})
   };
   //============= удаление контакта из списка ========
   const deleteContact = (contactId) => { 
-    setContacts(prevState => prevState.contacts.filter(contact => contact.id !== contactId)
+    setContacts(prevState => prevState.filter(contact => contact.id !== contactId)
     )
   };
   //========= принимает данные с компонента Form ====
@@ -51,13 +46,6 @@ const [contacts, setContacts] = useState([
     localStorage.setItem('contacts', JSON.stringify(contacts))
   }, [contacts])
 
-/*
-  componentDidUpdate(prevProps, prevState) { 
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-    };
-  };
-  */
 //==================================
   useEffect(() => {
     console.log('start useEffect');
@@ -65,21 +53,8 @@ const [contacts, setContacts] = useState([
     const parsedContacts = JSON.parse(contacts);
      if (parsedContacts) {
   setContacts(parsedContacts);};
-  }, [])
-  
-  
-  /*
-  componentDidMount() { 
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
-    if (parsedContacts) {
-  this.setState({ contacts: parsedContacts });
-    };
-  };
-  */
-//===================================
-  
-    //const { contacts, filter } = this.state;
+  }, [setContacts])
+
     const normalizeFilter = filter.toLowerCase();
     const filterContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
     return (
