@@ -5,7 +5,6 @@ import ContactFilter from './ContactFilter/ContactFilter'
 const shortid = require('shortid');
 
 
-
 function App() {
 
 const [contacts, setContacts] = useState([

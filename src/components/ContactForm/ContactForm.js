@@ -10,18 +10,18 @@ const shortid = require("shortid");
  const nameInputId = shortid.generate();
  const numberInputId = shortid.generate();
   //========= обновляет данные в state =================
-  //const handleChangeName = (e) => {
-  // setName(e.currentTarget.value);
-  // };
+  const handleChangeName = (e) => {
+   setName(e.currentTarget.value);
+   };
    
-   // const handleChangeNumber = (e) => {
-   //   setNumber(e.currentTarget.value);
-   // };
+    const handleChangeNumber = (e) => {
+      setNumber(e.currentTarget.value);
+    };
   //======================== добавление контакта  =========
   //================== предает данные в App ===============
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(name, number);
+    onSubmit({name, number});
     reset();
   };
   //====================== reset формы ====================
@@ -40,7 +40,7 @@ const shortid = require("shortid");
             type="text"
             name="name"
             value={name}
-            onChange={setName((e) => e.currentTarget.value)}
+            onChange={handleChangeName}
             placeholder="Enter name"
             id={nameInputId}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -55,7 +55,7 @@ const shortid = require("shortid");
             name="number"
             placeholder="Enter number"
             value={number}
-            onChange={setNumber((e) => e.currentTarget.value)}
+            onChange={handleChangeNumber}
             id={numberInputId}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
