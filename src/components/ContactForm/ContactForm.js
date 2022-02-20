@@ -67,11 +67,9 @@ const shortid = require("shortid");
         </button>
       </form>
     );
-  }
-
+};
 
 export default ContactForm;
-
 
   //========================== propTypes ===================
   ContactForm.propTypes = {

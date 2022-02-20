@@ -6,7 +6,6 @@ import useLocalStorage from '../hooks/useLocalStorage'
 import data from '../data/data.json'
 const shortid = require('shortid');
 
-
 function App() {
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useLocalStorage('contacts', data);
